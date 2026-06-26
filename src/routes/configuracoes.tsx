@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { USER, PROVA } from "@/lib/mock";
-import { Bell, Moon, Sun, Download, Trash2, LogOut, CloudCheck } from "lucide-react";
+import { Bell, Moon, Sun, Download, Trash2, LogOut, Cloud } from "lucide-react";
 
 export const Route = createFileRoute("/configuracoes")({
   head: () => ({ meta: [{ title: "Configurações — RevisaFlash" }] }),
@@ -85,7 +85,7 @@ function ConfigPage() {
           </Section>
 
           <Section id="dados" title="Dados e sincronização" desc="Sincronização offline e exportações.">
-            <Toggle label="Sincronização automática" desc="Mantém os dados em todos os dispositivos" on={sync} onChange={setSync} icon={<CloudCheck className="h-4 w-4" />} />
+            <Toggle label="Sincronização automática" desc="Mantém os dados em todos os dispositivos" on={sync} onChange={setSync} icon={<Cloud className="h-4 w-4" />} />
             <div className="flex flex-wrap gap-2">
               <button className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface-2 px-3 py-2 text-xs font-medium hover:bg-white/5">
                 <Download className="h-3.5 w-3.5" /> Exportar dados (JSON)

@@ -163,7 +163,7 @@ function BottomNav({ pathname }: { pathname: string }) {
                 active ? "text-primary" : "text-foreground/45",
               ].join(" ")}
             >
-              <Icon className="h-4.5 w-4.5" />
+              <Icon className="h-5 w-5" />
               <span className="text-[10px] font-medium">{r.label}</span>
               <span className={["h-0.5 w-4 rounded-full transition-colors", active ? "bg-primary" : "bg-transparent"].join(" ")} />
             </Link>
