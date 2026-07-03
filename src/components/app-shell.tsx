@@ -1,12 +1,12 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Home, BookOpen, Calendar, AlertTriangle, Layers, BarChart3, Settings,
-  Search, Flame, LogOut, ChevronRight,
+  Search, Flame, LogOut, ChevronRight, Sparkles,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { USER, STREAK, PROVA, diasAteProva, ROTAS } from "@/lib/mock";
 
-const ICONS = { home: Home, book: BookOpen, calendar: Calendar, alert: AlertTriangle, layers: Layers, chart: BarChart3, settings: Settings } as const;
+const ICONS = { home: Home, book: BookOpen, calendar: Calendar, alert: AlertTriangle, layers: Layers, chart: BarChart3, settings: Settings, sparkles: Sparkles } as const;
 
 function NavItem({ to, label, iconKey, active }: { to: string; label: string; iconKey: keyof typeof ICONS; active: boolean }) {
   const Icon = ICONS[iconKey];
