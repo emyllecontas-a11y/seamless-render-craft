@@ -127,6 +127,7 @@ export const ROTAS = [
   { to: "/conteudo", label: "Conteúdo", icon: "book" },
   { to: "/calendario", label: "Calendário", icon: "calendar" },
   { to: "/erros", label: "Erros", icon: "alert" },
+  { to: "/flash-ia", label: "Flash IA", icon: "sparkles" },
   { to: "/flashcards", label: "Flashcards", icon: "layers" },
   { to: "/desempenho", label: "Desempenho", icon: "chart" },
   { to: "/configuracoes", label: "Ajustes", icon: "settings" },

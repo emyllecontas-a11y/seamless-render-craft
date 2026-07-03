@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LandingRouteImport } from './routes/landing'
 import { Route as FlashcardsRouteImport } from './routes/flashcards'
+import { Route as FlashIaRouteImport } from './routes/flash-ia'
 import { Route as ErrosRouteImport } from './routes/erros'
 import { Route as DesempenhoRouteImport } from './routes/desempenho'
 import { Route as ConteudoRouteImport } from './routes/conteudo'
@@ -32,6 +33,11 @@ const LandingRoute = LandingRouteImport.update({
 const FlashcardsRoute = FlashcardsRouteImport.update({
   id: '/flashcards',
   path: '/flashcards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlashIaRoute = FlashIaRouteImport.update({
+  id: '/flash-ia',
+  path: '/flash-ia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ErrosRoute = ErrosRouteImport.update({
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/conteudo': typeof ConteudoRoute
   '/desempenho': typeof DesempenhoRoute
   '/erros': typeof ErrosRoute
+  '/flash-ia': typeof FlashIaRoute
   '/flashcards': typeof FlashcardsRoute
   '/landing': typeof LandingRoute
   '/login': typeof LoginRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/conteudo': typeof ConteudoRoute
   '/desempenho': typeof DesempenhoRoute
   '/erros': typeof ErrosRoute
+  '/flash-ia': typeof FlashIaRoute
   '/flashcards': typeof FlashcardsRoute
   '/landing': typeof LandingRoute
   '/login': typeof LoginRoute
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/conteudo': typeof ConteudoRoute
   '/desempenho': typeof DesempenhoRoute
   '/erros': typeof ErrosRoute
+  '/flash-ia': typeof FlashIaRoute
   '/flashcards': typeof FlashcardsRoute
   '/landing': typeof LandingRoute
   '/login': typeof LoginRoute
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/conteudo'
     | '/desempenho'
     | '/erros'
+    | '/flash-ia'
     | '/flashcards'
     | '/landing'
     | '/login'
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/conteudo'
     | '/desempenho'
     | '/erros'
+    | '/flash-ia'
     | '/flashcards'
     | '/landing'
     | '/login'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/conteudo'
     | '/desempenho'
     | '/erros'
+    | '/flash-ia'
     | '/flashcards'
     | '/landing'
     | '/login'
@@ -142,6 +154,7 @@ export interface RootRouteChildren {
   ConteudoRoute: typeof ConteudoRoute
   DesempenhoRoute: typeof DesempenhoRoute
   ErrosRoute: typeof ErrosRoute
+  FlashIaRoute: typeof FlashIaRoute
   FlashcardsRoute: typeof FlashcardsRoute
   LandingRoute: typeof LandingRoute
   LoginRoute: typeof LoginRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/flashcards'
       fullPath: '/flashcards'
       preLoaderRoute: typeof FlashcardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flash-ia': {
+      id: '/flash-ia'
+      path: '/flash-ia'
+      fullPath: '/flash-ia'
+      preLoaderRoute: typeof FlashIaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/erros': {
@@ -222,6 +242,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConteudoRoute: ConteudoRoute,
   DesempenhoRoute: DesempenhoRoute,
   ErrosRoute: ErrosRoute,
+  FlashIaRoute: FlashIaRoute,
   FlashcardsRoute: FlashcardsRoute,
   LandingRoute: LandingRoute,
   LoginRoute: LoginRoute,
@@ -229,3 +250,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

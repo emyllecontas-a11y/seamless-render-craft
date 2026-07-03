@@ -1,12 +1,12 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Home, BookOpen, Calendar, AlertTriangle, Layers, BarChart3, Settings,
-  Search, Flame, LogOut, ChevronRight,
+  Search, Flame, LogOut, ChevronRight, Sparkles,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { USER, STREAK, PROVA, diasAteProva, ROTAS } from "@/lib/mock";
 
-const ICONS = { home: Home, book: BookOpen, calendar: Calendar, alert: AlertTriangle, layers: Layers, chart: BarChart3, settings: Settings } as const;
+const ICONS = { home: Home, book: BookOpen, calendar: Calendar, alert: AlertTriangle, layers: Layers, chart: BarChart3, settings: Settings, sparkles: Sparkles } as const;
 
 function NavItem({ to, label, iconKey, active }: { to: string; label: string; iconKey: keyof typeof ICONS; active: boolean }) {
   const Icon = ICONS[iconKey];
@@ -27,7 +27,7 @@ function NavItem({ to, label, iconKey, active }: { to: string; label: string; ic
   );
 }
 
-export function AppShell({ children, title, breadcrumb }: { children: ReactNode; title?: string; breadcrumb?: string }) {
+export function AppShell({ children, title, breadcrumb }: { children: ReactNode; title?: ReactNode; breadcrumb?: string }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const dias = diasAteProva();
 
@@ -133,7 +133,7 @@ export function AppShell({ children, title, breadcrumb }: { children: ReactNode;
           {title && (
             <div className="mb-6 flex flex-col gap-1">
               {breadcrumb && <span className="text-[11px] font-medium uppercase tracking-widest text-foreground/40">{breadcrumb}</span>}
-              <h1 className="font-display text-2xl font-semibold tracking-tight text-balance sm:text-3xl">{title}</h1>
+              {title && <h1 className="font-display text-2xl font-semibold tracking-tight text-balance sm:text-3xl">{title}</h1>}
             </div>
           )}
           {children}
