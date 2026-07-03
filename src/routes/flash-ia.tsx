@@ -25,7 +25,7 @@ function FlashIAPage() {
   const [selecionados, setSelecionados] = useState<string[]>(["flashcards"]);
 
   return (
-    <AppShell title="Flash IA" breadcrumb="Flash IA">
+    <AppShell title="✨ Flash IA" breadcrumb="Flash IA">
       <p className="-mt-4 mb-6 max-w-2xl text-sm text-foreground/55">
         Transforme seus arquivos, textos ou áudios em materiais de estudo personalizados com IA.
       </p>
