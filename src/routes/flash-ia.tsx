@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Paperclip, Mic, Zap } from "lucide-react";
+import { Paperclip, Mic, Zap, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/flash-ia")({
   head: () => ({ meta: [{ title: "Flash IA — RevisaFlash" }] }),
@@ -25,7 +25,15 @@ function FlashIAPage() {
   const [selecionados, setSelecionados] = useState<string[]>(["flashcards"]);
 
   return (
-    <AppShell title="✨ Flash IA" breadcrumb="Flash IA">
+    <AppShell
+      title={
+        <span className="inline-flex items-center gap-2">
+          <Sparkles className="h-6 w-6 text-primary" />
+          Flash IA
+        </span>
+      }
+      breadcrumb="Flash IA"
+    >
       <p className="-mt-4 mb-6 max-w-2xl text-sm text-foreground/55">
         Transforme seus arquivos, textos ou áudios em materiais de estudo personalizados com IA.
       </p>
