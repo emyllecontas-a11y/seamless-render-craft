@@ -20,6 +20,7 @@ import { Route as ConteudoRouteImport } from './routes/conteudo'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SimuladosIdRouteImport } from './routes/simulados.$id'
 
 const SimuladosRoute = SimuladosRouteImport.update({
   id: '/simulados',
@@ -76,6 +77,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SimuladosIdRoute = SimuladosIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => SimuladosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -88,7 +94,8 @@ export interface FileRoutesByFullPath {
   '/flashcards': typeof FlashcardsRoute
   '/landing': typeof LandingRoute
   '/login': typeof LoginRoute
-  '/simulados': typeof SimuladosRoute
+  '/simulados': typeof SimuladosRouteWithChildren
+  '/simulados/$id': typeof SimuladosIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -101,7 +108,8 @@ export interface FileRoutesByTo {
   '/flashcards': typeof FlashcardsRoute
   '/landing': typeof LandingRoute
   '/login': typeof LoginRoute
-  '/simulados': typeof SimuladosRoute
+  '/simulados': typeof SimuladosRouteWithChildren
+  '/simulados/$id': typeof SimuladosIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -115,7 +123,8 @@ export interface FileRoutesById {
   '/flashcards': typeof FlashcardsRoute
   '/landing': typeof LandingRoute
   '/login': typeof LoginRoute
-  '/simulados': typeof SimuladosRoute
+  '/simulados': typeof SimuladosRouteWithChildren
+  '/simulados/$id': typeof SimuladosIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/landing'
     | '/login'
     | '/simulados'
+    | '/simulados/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/landing'
     | '/login'
     | '/simulados'
+    | '/simulados/$id'
   id:
     | '__root__'
     | '/'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/landing'
     | '/login'
     | '/simulados'
+    | '/simulados/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -170,7 +182,7 @@ export interface RootRouteChildren {
   FlashcardsRoute: typeof FlashcardsRoute
   LandingRoute: typeof LandingRoute
   LoginRoute: typeof LoginRoute
-  SimuladosRoute: typeof SimuladosRoute
+  SimuladosRoute: typeof SimuladosRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -252,8 +264,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/simulados/$id': {
+      id: '/simulados/$id'
+      path: '/$id'
+      fullPath: '/simulados/$id'
+      preLoaderRoute: typeof SimuladosIdRouteImport
+      parentRoute: typeof SimuladosRoute
+    }
   }
 }
+
+interface SimuladosRouteChildren {
+  SimuladosIdRoute: typeof SimuladosIdRoute
+}
+
+const SimuladosRouteChildren: SimuladosRouteChildren = {
+  SimuladosIdRoute: SimuladosIdRoute,
+}
+
+const SimuladosRouteWithChildren = SimuladosRoute._addFileChildren(
+  SimuladosRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -266,7 +297,7 @@ const rootRouteChildren: RootRouteChildren = {
   FlashcardsRoute: FlashcardsRoute,
   LandingRoute: LandingRoute,
   LoginRoute: LoginRoute,
-  SimuladosRoute: SimuladosRoute,
+  SimuladosRoute: SimuladosRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
