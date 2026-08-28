@@ -4,10 +4,13 @@ import { AppShell } from "@/components/app-shell";
 import { SIMULADOS, gerarQuestoes, type Questao } from "@/lib/simulados";
 import {
   ArrowLeft, ArrowRight, Bookmark, Check, Clock, Flag, Grid3X3, X,
-  CheckCircle2, XCircle, MinusCircle, Eye, RotateCcw, Undo2, ChevronLeft,
+  CheckCircle2, XCircle, MinusCircle, RotateCcw, Undo2, ChevronLeft,
 } from "lucide-react";
 
 export const Route = createFileRoute("/simulados/$id")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    view: search["view"] === "resultado" ? ("resultado" as const) : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Resolver simulado — RevisaFlash" },
@@ -34,7 +37,8 @@ function SimuladoPlayer() {
   const [marcadas, setMarcadas] = useState<number[]>([]);
   const [painel, setPainel] = useState(false);
   const [confirmar, setConfirmar] = useState(false);
-  const [fase, setFase] = useState<Fase>("resolvendo");
+  const { view } = Route.useSearch();
+  const [fase, setFase] = useState<Fase>(view === "resultado" ? "resultado" : "resolvendo");
 
   const q = questoes[idx];
   const respondidas = Object.keys(respostas).length;
@@ -557,5 +561,3 @@ function Donut({ pct }: { pct: number }) {
     </div>
   );
 }
-
-export { Eye };

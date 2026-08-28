@@ -129,6 +129,7 @@ export const ROTAS = [
   { to: "/erros", label: "Erros", icon: "alert" },
   { to: "/flash-ia", label: "Flash IA", icon: "sparkles" },
   { to: "/flashcards", label: "Flashcards", icon: "layers" },
+  { to: "/simulados", label: "Simulados", icon: "clipboard" },
   { to: "/desempenho", label: "Desempenho", icon: "chart" },
   { to: "/configuracoes", label: "Ajustes", icon: "settings" },
 ] as const;

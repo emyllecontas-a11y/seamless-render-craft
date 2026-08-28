@@ -3,7 +3,7 @@ import { AppShell } from "@/components/app-shell";
 import { SIMULADOS, statusLabel, type Simulado } from "@/lib/simulados";
 import { Clock, ListChecks, Play, RotateCcw, Upload, FileText, CheckCircle2, Layers } from "lucide-react";
 
-export const Route = createFileRoute("/simulados")({
+export const Route = createFileRoute("/simulados/")({
   head: () => ({
     meta: [
       { title: "Simulados — RevisaFlash" },
