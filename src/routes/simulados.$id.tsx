@@ -8,7 +8,9 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/simulados/$id")({
-  validateSearch: (search: Record<string, unknown>) => ({
+  validateSearch: (
+    search: Record<string, unknown>,
+  ): { view?: "resultado" } => ({
     view: search["view"] === "resultado" ? ("resultado" as const) : undefined,
   }),
   head: () => ({
