@@ -78,9 +78,9 @@ const SimuladosIndexRoute = SimuladosIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const SimuladosIdRoute = SimuladosIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => SimuladosRoute,
+  id: '/simulados/$id',
+  path: '/simulados/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -182,6 +182,7 @@ export interface RootRouteChildren {
   FlashcardsRoute: typeof FlashcardsRoute
   LandingRoute: typeof LandingRoute
   LoginRoute: typeof LoginRoute
+  SimuladosIdRoute: typeof SimuladosIdRoute
   SimuladosIndexRoute: typeof SimuladosIndexRoute
 }
 
@@ -266,10 +267,10 @@ declare module '@tanstack/react-router' {
     }
     '/simulados/$id': {
       id: '/simulados/$id'
-      path: '/$id'
+      path: '/simulados/$id'
       fullPath: '/simulados/$id'
       preLoaderRoute: typeof SimuladosIdRouteImport
-      parentRoute: typeof SimuladosRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -285,6 +286,7 @@ const rootRouteChildren: RootRouteChildren = {
   FlashcardsRoute: FlashcardsRoute,
   LandingRoute: LandingRoute,
   LoginRoute: LoginRoute,
+  SimuladosIdRoute: SimuladosIdRoute,
   SimuladosIndexRoute: SimuladosIndexRoute,
 }
 export const routeTree = rootRouteImport
