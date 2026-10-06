@@ -8,12 +8,7 @@ import {
 import { Check, Plus, Clock, ArrowUpRight, Flame, Target, BookOpen, AlertTriangle, Folder } from "lucide-react";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Início — RevisaFlash" },
-      { name: "description", content: "Painel diário de revisões, checklist e progresso para o ENARE." },
-    ],
-  }),
+  head: () => ({ meta: [{"title": "Início — RevisaFlash"}, {"name": "description", "content": "Seu painel diário de revisões, checklist e progresso para o ENARE."}, {"property": "og:title", "content": "Início — RevisaFlash"}, {"property": "og:description", "content": "Seu painel diário de revisões, checklist e progresso para o ENARE."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: DashboardPage,
 });
 

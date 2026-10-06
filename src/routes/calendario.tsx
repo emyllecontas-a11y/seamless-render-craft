@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 import { AppShell } from "@/components/app-shell";
 import { ESTUDO_MES, REVISOES_HOJE } from "@/lib/mock";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 
 export const Route = createFileRoute("/calendario")({
-  head: () => ({ meta: [{ title: "Calendário — RevisaFlash" }] }),
+  head: () => ({ meta: [{"title": "Calendário — RevisaFlash"}, {"name": "description", "content": "Organize sua agenda de estudos e acompanhe revisões e atividades programadas."}, {"property": "og:title", "content": "Calendário — RevisaFlash"}, {"property": "og:description", "content": "Organize sua agenda de estudos e acompanhe revisões e atividades programadas."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: CalendarioPage,
 });
 
@@ -23,17 +24,17 @@ function CalendarioPage() {
     <AppShell breadcrumb="Calendário" title="Agenda de estudos">
       <div className="grid gap-4 lg:grid-cols-3">
         <section className="rf-card p-5 lg:col-span-2">
-          <header className="mb-5 flex items-center justify-between">
+          <header className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <h2 className="font-display text-lg font-semibold">Junho 2026</h2>
               <div className="flex items-center gap-1">
-                <button className="grid h-7 w-7 place-items-center rounded-md border border-border hover:bg-white/5"><ChevronLeft className="h-3.5 w-3.5" /></button>
-                <button className="grid h-7 w-7 place-items-center rounded-md border border-border hover:bg-white/5"><ChevronRight className="h-3.5 w-3.5" /></button>
+                <Button variant="ghost" className="grid h-7 w-7 place-items-center rounded-md border border-border hover:bg-foreground/5"><ChevronLeft className="h-3.5 w-3.5" /></Button>
+                <Button variant="ghost" className="grid h-7 w-7 place-items-center rounded-md border border-border hover:bg-foreground/5"><ChevronRight className="h-3.5 w-3.5" /></Button>
               </div>
             </div>
-            <button className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90">
+            <Button variant="ghost" className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90">
               <Plus className="h-3.5 w-3.5" /> Registrar estudo
-            </button>
+            </Button>
           </header>
 
           <div className="grid grid-cols-7 gap-px overflow-hidden rounded-lg border border-border bg-border">
@@ -63,7 +64,7 @@ function CalendarioPage() {
           <div className="mt-4 flex flex-wrap items-center gap-4 text-[11px] text-foreground/50">
             <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-primary" /> Teórico</span>
             <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-accent" /> Prático</span>
-            <span className="ml-auto">Hoje destacado em verde-azulado</span>
+            
           </div>
         </section>
 

@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { AppShell } from "@/components/app-shell";
 import { GRANDES_AREAS } from "@/lib/mock";
 import { Plus, X, AlertTriangle, Filter } from "lucide-react";
 
 export const Route = createFileRoute("/erros")({
-  head: () => ({ meta: [{ title: "Banco de erros — RevisaFlash" }] }),
+  head: () => ({ meta: [{"title": "Banco de erros — RevisaFlash"}, {"name": "description", "content": "Consulte os erros por grande área e direcione sua revisão para os temas prioritários."}, {"property": "og:title", "content": "Banco de erros — RevisaFlash"}, {"property": "og:description", "content": "Consulte os erros por grande área e direcione sua revisão para os temas prioritários."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: ErrosPage,
 });
 
@@ -27,20 +28,20 @@ function ErrosPage() {
         <div className="inline-flex items-center gap-2 text-xs text-foreground/55">
           <Filter className="h-3.5 w-3.5" /> Ordenado por incidência
         </div>
-        <button
+        <Button variant="ghost"
           onClick={() => setOpen(true)}
           className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90"
         >
           <Plus className="h-3.5 w-3.5" /> Registrar erro
-        </button>
+        </Button>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {ordenadas.map((g) => {
           const pct = Math.round((g.erros / g.total) * 100);
           const critico = g.erros >= 10;
           return (
-            <article key={g.nome} className="rf-card rf-card-hover p-5">
+            <article key={g.nome} className="rf-library-card p-6">
               <div className="mb-3 flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <div className="grid h-10 w-10 place-items-center rounded-lg bg-background/60 text-lg">{g.icon}</div>
@@ -59,7 +60,7 @@ function ErrosPage() {
                 <span className="font-display text-2xl font-semibold tabular-nums text-foreground">{g.erros}</span>
                 <span className="text-xs text-foreground/50">{pct}% de erro</span>
               </div>
-              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/5">
+              <div className="mt-2 h-1 overflow-hidden rounded-full bg-foreground/5">
                 <div className={["h-full rounded-full", critico ? "bg-accent" : "bg-primary/70"].join(" ")} style={{ width: `${Math.min(pct * 2, 100)}%` }} />
               </div>
             </article>
@@ -76,7 +77,7 @@ function ErrosPage() {
                 <h3 className="font-display text-base font-semibold">Registrar novo erro</h3>
                 <p className="text-xs text-foreground/45">Será adicionado ao banco e gerará flashcard automaticamente.</p>
               </div>
-              <button onClick={() => setOpen(false)} className="grid h-8 w-8 place-items-center rounded-full bg-white/5 hover:bg-white/10" aria-label="Fechar"><X className="h-4 w-4" /></button>
+              <Button variant="ghost" onClick={() => setOpen(false)} className="grid h-8 w-8 place-items-center rounded-full bg-foreground/5 hover:bg-foreground/10" aria-label="Fechar"><X className="h-4 w-4" /></Button>
             </header>
             <div className="space-y-3 p-5">
               <Field label="Grande área">
@@ -93,14 +94,14 @@ function ErrosPage() {
               <Field label="Tipo de erro">
                 <div className="flex flex-wrap gap-2">
                   {["Conceito", "Interpretação", "Atenção", "Memória"].map((t) => (
-                    <button key={t} className="rounded-full border border-border bg-background px-3 py-1 text-xs hover:border-primary hover:text-primary">{t}</button>
+                    <Button variant="ghost" key={t} className="rounded-full border border-border bg-background px-3 py-1 text-xs hover:border-primary hover:text-primary">{t}</Button>
                   ))}
                 </div>
               </Field>
             </div>
             <footer className="flex items-center justify-end gap-2 border-t border-border bg-background/30 p-4">
-              <button onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm text-foreground/65 hover:bg-white/5">Cancelar</button>
-              <button onClick={() => setOpen(false)} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">Salvar erro</button>
+              <Button variant="ghost" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm text-foreground/65 hover:bg-foreground/5">Cancelar</Button>
+              <Button variant="ghost" onClick={() => setOpen(false)} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">Salvar erro</Button>
             </footer>
           </div>
         </div>

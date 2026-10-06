@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export const Route = createFileRoute("/conteudo")({
-  head: () => ({ meta: [{ title: "Conteúdo — RevisaFlash" }] }),
+  head: () => ({ meta: [{"title": "Conteúdo — RevisaFlash"}, {"name": "description", "content": "Sua biblioteca de disciplinas, tópicos e materiais de estudo para a residência."}, {"property": "og:title", "content": "Conteúdo — RevisaFlash"}, {"property": "og:description", "content": "Sua biblioteca de disciplinas, tópicos e materiais de estudo para a residência."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: ConteudoPage,
 });
 

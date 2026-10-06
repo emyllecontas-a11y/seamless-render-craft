@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { AppShell } from "@/components/app-shell";
 import { USER, PROVA } from "@/lib/mock";
 import { Bell, Moon, Sun, Download, Trash2, LogOut, Cloud } from "lucide-react";
 
 export const Route = createFileRoute("/configuracoes")({
-  head: () => ({ meta: [{ title: "Configurações — RevisaFlash" }] }),
+  head: () => ({ meta: [{"title": "Configurações — RevisaFlash"}, {"name": "description", "content": "Ajuste seu perfil, preferências, notificações e metas de estudos."}, {"property": "og:title", "content": "Configurações — RevisaFlash"}, {"property": "og:description", "content": "Ajuste seu perfil, preferências, notificações e metas de estudos."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: ConfigPage,
 });
 
@@ -27,7 +28,7 @@ function ConfigPage() {
             ["dados", "Dados e sincronização"],
             ["conta", "Conta"],
           ].map(([k, l], i) => (
-            <a key={k} href={`#${k}`} className={["block rounded-md px-3 py-2 text-sm transition-colors", i === 0 ? "bg-primary/10 text-primary font-medium" : "text-foreground/65 hover:bg-white/5"].join(" ")}>{l}</a>
+            <a key={k} href={`#${k}`} className={["block rounded-md px-3 py-2 text-sm transition-colors", i === 0 ? "bg-primary/10 text-primary font-medium" : "text-foreground/65 hover:bg-foreground/5"].join(" ")}>{l}</a>
           ))}
         </nav>
 
@@ -39,7 +40,7 @@ function ConfigPage() {
                 <div className="text-sm font-medium">{USER.name}</div>
                 <div className="text-xs text-foreground/45">{USER.email}</div>
               </div>
-              <button className="rounded-lg border border-border bg-surface-2 px-3 py-1.5 text-xs font-medium hover:bg-white/5">Alterar foto</button>
+              <Button variant="ghost" className="rounded-lg border border-border bg-surface-2 px-3 py-1.5 text-xs font-medium hover:bg-foreground/5">Alterar foto</Button>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               <Input label="Nome completo" defaultValue={USER.name} />
@@ -54,18 +55,18 @@ function ConfigPage() {
                 ["claro", "Claro", <Sun key="s" className="h-4 w-4" />],
                 ["sistema", "Sistema", <span key="sys" className="text-xs font-bold">A</span>],
               ] as const).map(([k, l, i]) => (
-                <button
+                <Button variant="ghost"
                   key={k as string}
                   onClick={() => setTema(k as typeof tema)}
                   className={[
                     "flex items-center justify-center gap-2 rounded-lg border px-3 py-2.5 text-sm transition-colors",
                     tema === k
                       ? "border-primary bg-primary/10 text-primary"
-                      : "border-border bg-surface-2 text-foreground/70 hover:bg-white/5",
+                      : "border-border bg-surface-2 text-foreground/70 hover:bg-foreground/5",
                   ].join(" ")}
                 >
                   {i} {l}
-                </button>
+                </Button>
               ))}
             </div>
           </Section>
@@ -87,23 +88,23 @@ function ConfigPage() {
           <Section id="dados" title="Dados e sincronização" desc="Sincronização offline e exportações.">
             <Toggle label="Sincronização automática" desc="Mantém os dados em todos os dispositivos" on={sync} onChange={setSync} icon={<Cloud className="h-4 w-4" />} />
             <div className="flex flex-wrap gap-2">
-              <button className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface-2 px-3 py-2 text-xs font-medium hover:bg-white/5">
+              <Button variant="ghost" className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface-2 px-3 py-2 text-xs font-medium hover:bg-foreground/5">
                 <Download className="h-3.5 w-3.5" /> Exportar dados (JSON)
-              </button>
-              <button className="inline-flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-3 py-2 text-xs font-medium text-accent hover:bg-accent/15">
+              </Button>
+              <Button variant="ghost" className="inline-flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-3 py-2 text-xs font-medium text-accent hover:bg-accent/15">
                 <Trash2 className="h-3.5 w-3.5" /> Limpar cache local
-              </button>
+              </Button>
             </div>
           </Section>
 
           <Section id="conta" title="Conta" desc="Encerrar sessão ou excluir conta.">
             <div className="flex flex-wrap gap-2">
-              <Link to="/login" className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface-2 px-3 py-2 text-sm font-medium hover:bg-white/5">
+              <Link to="/login" className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface-2 px-3 py-2 text-sm font-medium hover:bg-foreground/5">
                 <LogOut className="h-4 w-4" /> Sair
               </Link>
-              <button className="inline-flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-3 py-2 text-sm font-medium text-accent hover:bg-accent/15">
+              <Button variant="ghost" className="inline-flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-3 py-2 text-sm font-medium text-accent hover:bg-accent/15">
                 <Trash2 className="h-4 w-4" /> Excluir conta
-              </button>
+              </Button>
             </div>
           </Section>
         </div>
@@ -114,7 +115,7 @@ function ConfigPage() {
 
 function Section({ id, title, desc, children }: { id: string; title: string; desc: string; children: React.ReactNode }) {
   return (
-    <section id={id} className="rf-card p-5 scroll-mt-20">
+    <section id={id} className="border-b border-border p-5 scroll-mt-20">
       <header className="mb-4">
         <h2 className="font-display text-base font-semibold">{title}</h2>
         <p className="text-xs text-foreground/45">{desc}</p>
@@ -143,14 +144,15 @@ function Toggle({ label, desc, on, onChange, icon }: { label: string; desc?: str
           {desc && <div className="text-xs text-foreground/45">{desc}</div>}
         </div>
       </div>
-      <button
+      <Button variant="ghost"
+        aria-label={label}
         onClick={() => onChange(!on)}
         role="switch"
         aria-checked={on}
-        className={["relative h-5 w-9 shrink-0 rounded-full transition-colors", on ? "bg-primary" : "bg-white/10"].join(" ")}
+        className={["relative h-5 w-9 shrink-0 p-0 rounded-full transition-colors", on ? "bg-primary" : "bg-foreground/10"].join(" ")}
       >
         <span className={["absolute top-0.5 grid h-4 w-4 place-items-center rounded-full bg-background shadow transition-all", on ? "left-[18px]" : "left-0.5"].join(" ")} />
-      </button>
+      </Button>
     </div>
   );
 }
