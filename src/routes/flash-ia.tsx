@@ -8,7 +8,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Paperclip, Mic, Zap, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/flash-ia")({
-  head: () => ({ meta: [{ title: "Flash IA — RevisaFlash" }] }),
+  head: () => ({ meta: [{"title": "Flash IA — RevisaFlash"}, {"name": "description", "content": "Prepare textos, arquivos e áudios para criar materiais de estudo personalizados."}, {"property": "og:title", "content": "Flash IA — RevisaFlash"}, {"property": "og:description", "content": "Prepare textos, arquivos e áudios para criar materiais de estudo personalizados."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: FlashIAPage,
 });
 
@@ -39,7 +39,7 @@ function FlashIAPage() {
       </p>
 
       {/* Área de entrada estilo chat */}
-      <Card className="relative overflow-hidden border border-border bg-surface p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5">
+      <Card className="mx-auto max-w-3xl rounded-3xl relative overflow-hidden border border-border bg-surface p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5">
         <Textarea
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
@@ -63,7 +63,7 @@ function FlashIAPage() {
       </Card>
 
       {/* Opções de geração */}
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mx-auto mt-4 flex max-w-3xl flex-wrap gap-2">
         <ToggleGroup
           type="multiple"
           value={selecionados}
@@ -74,7 +74,7 @@ function FlashIAPage() {
             <ToggleGroupItem
               key={op.id}
               value={op.id}
-              className="rounded-full border border-border bg-surface px-3 py-2 text-xs font-medium text-foreground/70 transition-colors hover:bg-white/5 data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+              className="rounded-full border border-border bg-surface px-3 py-2 text-xs font-medium text-foreground/70 transition-colors hover:bg-foreground/5 data-[state=on]:border-primary data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
             >
               {op.label}
             </ToggleGroupItem>
@@ -89,7 +89,7 @@ function FlashIAPage() {
       </Button>
 
       {/* Área de resultados */}
-      <Card className="mt-6 flex min-h-[280px] flex-col items-center justify-center border border-dashed border-border bg-muted/20 p-8 text-center sm:min-h-[360px]">
+      <Card className="mx-auto mt-6 flex max-w-3xl rounded-3xl min-h-[280px] flex-col items-center justify-center border border-dashed border-border bg-muted/20 p-8 text-center sm:min-h-[360px]">
         <div className="mb-3 grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary">
           <Zap className="h-5 w-5" />
         </div>

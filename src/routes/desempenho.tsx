@@ -3,7 +3,7 @@ import { AppShell } from "@/components/app-shell";
 import { HEATMAP, DESEMPENHO_METRICAS, GRANDES_AREAS } from "@/lib/mock";
 
 export const Route = createFileRoute("/desempenho")({
-  head: () => ({ meta: [{ title: "Desempenho — RevisaFlash" }] }),
+  head: () => ({ meta: [{"title": "Desempenho — RevisaFlash"}, {"name": "description", "content": "Acompanhe sua evolução, taxa de acertos e consistência nos estudos."}, {"property": "og:title", "content": "Desempenho — RevisaFlash"}, {"property": "og:description", "content": "Acompanhe sua evolução, taxa de acertos e consistência nos estudos."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: DesempenhoPage,
 });
 
@@ -21,7 +21,7 @@ function DesempenhoPage() {
       </div>
 
       <section className="rf-card p-5 mb-6">
-        <header className="mb-5 flex items-end justify-between">
+        <header className="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="font-display text-lg font-semibold">Consistência — 12 semanas</h2>
             <p className="text-xs text-foreground/45">Cada quadrado representa um dia de estudo.</p>
@@ -55,7 +55,7 @@ function DesempenhoPage() {
                     <span className="flex items-center gap-2 text-sm"><span>{a.icon}</span>{a.nome}</span>
                     <span className="text-xs font-medium tabular-nums text-foreground/65">{a.erros} <span className="text-foreground/35">/ {a.total}</span></span>
                   </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
+                  <div className="h-1.5 overflow-hidden rounded-full bg-foreground/5">
                     <div className={["h-full rounded-full", pct >= 15 ? "bg-accent" : "bg-primary/70"].join(" ")} style={{ width: `${Math.min(pct * 4, 100)}%` }} />
                   </div>
                 </li>
@@ -88,7 +88,7 @@ function DesempenhoPage() {
 }
 
 function heatClass(v: number) {
-  return ["bg-white/5", "bg-primary/20", "bg-primary/45", "bg-primary/70", "bg-primary"][v];
+  return ["bg-foreground/5", "bg-primary/20", "bg-primary/45", "bg-primary/70", "bg-primary"][v];
 }
 
 function Legend() {
@@ -107,7 +107,7 @@ function Big({ label, value, delta, positive }: { label: string; value: string; 
   return (
     <div className="rf-card p-4">
       <div className="text-[10px] font-medium uppercase tracking-widest text-foreground/40">{label}</div>
-      <div className="mt-1 flex items-baseline justify-between gap-2">
+      <div className="mt-1 flex flex-wrap items-baseline justify-between gap-2">
         <div className="font-display text-2xl font-semibold tabular-nums">{value}</div>
         {delta && <span className={["text-[11px] font-medium", positive ? "text-primary" : "text-accent"].join(" ")}>{delta}</span>}
       </div>
@@ -130,12 +130,12 @@ function Sparkline({ values }: { values: number[] }) {
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="h-32 w-full">
       <defs>
         <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#14B8A6" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#14B8A6" stopOpacity="0" />
+          <stop offset="0%" stopColor="var(--primary-readable)" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="var(--primary-readable)" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path d={area} fill="url(#g)" />
-      <path d={d} fill="none" stroke="#14B8A6" strokeWidth="1.4" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={d} fill="none" stroke="var(--primary-readable)" strokeWidth="1.4" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

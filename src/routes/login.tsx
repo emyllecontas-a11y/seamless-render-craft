@@ -1,14 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ArrowRight, Mail, Lock, Github } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
-  head: () => ({
-    meta: [
-      { title: "Entrar — RevisaFlash" },
-      { name: "description", content: "Acesse sua conta no RevisaFlash." },
-    ],
-  }),
+  head: () => ({ meta: [{"title": "Entrar — RevisaFlash"}, {"name": "description", "content": "Acesse sua conta RevisaFlash e continue seus estudos."}, {"property": "og:title", "content": "Entrar — RevisaFlash"}, {"property": "og:description", "content": "Acesse sua conta RevisaFlash e continue seus estudos."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: LoginPage,
 });
 
@@ -32,13 +28,13 @@ function LoginPage() {
             <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary text-primary-foreground">
               <span className="font-display text-base font-bold">R</span>
             </div>
-            <span className="font-display text-lg font-semibold tracking-tight">RevisaFlash</span>
+            <span className="font-display text-lg font-semibold tracking-normal">RevisaFlash</span>
           </Link>
         </div>
 
         <div className="relative space-y-6">
           <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-primary">ENARE 2026 · Odontologia</p>
-          <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight text-balance">
+          <h1 className="font-display text-4xl font-semibold leading-tight tracking-normal text-balance">
             Revise como quem faz curativo: <span className="text-primary">no tempo certo</span>,
             <br /> com a técnica certa.
           </h1>
@@ -74,7 +70,7 @@ function LoginPage() {
           </div>
 
           <header className="space-y-1.5">
-            <h2 className="font-display text-2xl font-semibold tracking-tight">Bem-vinda de volta</h2>
+            <h2 className="font-display text-2xl font-semibold tracking-normal">Bem-vinda de volta</h2>
             <p className="text-sm text-foreground/55">Entre para continuar de onde parou.</p>
           </header>
 
@@ -124,13 +120,13 @@ function LoginPage() {
           </div>
 
           <div className="space-y-2">
-            <button className="flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:bg-surface-2">
+            <Button variant="ghost" className="flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:bg-surface-2">
               <svg className="h-4 w-4" viewBox="0 0 24 24" aria-hidden><path fill="#EA4335" d="M12 11v3.9h5.5c-.24 1.5-1.7 4.4-5.5 4.4-3.3 0-6-2.7-6-6.1s2.7-6.1 6-6.1c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.8 4.6 14.6 3.5 12 3.5 6.9 3.5 2.8 7.6 2.8 12.7S6.9 21.9 12 21.9c6.9 0 9.2-4.8 9.2-7.3 0-.5-.1-.9-.1-1.3H12z"/></svg>
               Continuar com Google
-            </button>
-            <button className="flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:bg-surface-2">
+            </Button>
+            <Button variant="ghost" className="flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:bg-surface-2">
               <Github className="h-4 w-4" /> Continuar com GitHub
-            </button>
+            </Button>
           </div>
 
           <p className="text-center text-xs text-foreground/45">

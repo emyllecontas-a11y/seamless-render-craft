@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { AppShell } from "@/components/app-shell";
 import { DECKS, FLASHCARD_DEMO } from "@/lib/mock";
 import { Plus, RotateCw, ChevronLeft, Layers, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/flashcards")({
-  head: () => ({ meta: [{ title: "Flashcards — RevisaFlash" }] }),
+  head: () => ({ meta: [{"title": "Flashcards — RevisaFlash"}, {"name": "description", "content": "Revise seus decks de flashcards com repetição espaçada e acompanhe os cards do dia."}, {"property": "og:title", "content": "Flashcards — RevisaFlash"}, {"property": "og:description", "content": "Revise seus decks de flashcards com repetição espaçada e acompanhe os cards do dia."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: FlashcardsPage,
 });
 
@@ -16,22 +17,22 @@ function FlashcardsPage() {
   if (modo === "estudo") {
     return (
       <AppShell breadcrumb="Flashcards · Estudo">
-        <button onClick={() => { setModo("decks"); setVirado(false); }} className="mb-6 inline-flex items-center gap-1 text-xs font-medium text-foreground/55 hover:text-foreground">
+        <Button variant="ghost" onClick={() => { setModo("decks"); setVirado(false); }} className="mb-6 inline-flex items-center gap-1 text-xs font-medium text-foreground/55 hover:text-foreground">
           <ChevronLeft className="h-3.5 w-3.5" /> Voltar aos decks
-        </button>
+        </Button>
 
         <div className="mx-auto max-w-2xl">
           <div className="mb-4 flex items-center justify-between text-xs">
             <span className="font-medium text-primary uppercase tracking-widest">{FLASHCARD_DEMO.area}</span>
             <span className="text-foreground/50 tabular-nums">Card {FLASHCARD_DEMO.posicao} de {FLASHCARD_DEMO.total}</span>
           </div>
-          <div className="mb-2 h-1 overflow-hidden rounded-full bg-white/5">
+          <div className="mb-2 h-1 overflow-hidden rounded-full bg-foreground/5">
             <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${(FLASHCARD_DEMO.posicao / FLASHCARD_DEMO.total) * 100}%` }} />
           </div>
 
-          <button
+          <Button variant="ghost"
             onClick={() => setVirado((v) => !v)}
-            className="mt-6 grid min-h-[300px] w-full place-items-center rounded-2xl border border-border bg-surface p-10 text-center transition-all hover:border-primary/40 sm:min-h-[360px]"
+            className="mt-6 grid h-auto whitespace-normal min-h-[300px] w-full place-items-center rounded-2xl border border-border bg-surface p-10 text-center transition-all hover:border-primary/40 sm:min-h-[360px]"
             style={{ boxShadow: virado ? "var(--shadow-glow)" : undefined }}
           >
             {!virado ? (
@@ -47,7 +48,7 @@ function FlashcardsPage() {
                 <p className="max-w-md text-sm leading-relaxed text-foreground/65">{FLASHCARD_DEMO.resposta}</p>
               </div>
             )}
-          </button>
+          </Button>
 
           {virado && (
             <div className="mt-6 grid grid-cols-4 gap-2 rf-fade-in">
@@ -81,15 +82,15 @@ function FlashcardsPage() {
         <Mini l="Novos" v={DECKS.reduce((a, d) => a + d.novos, 0)} />
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {DECKS.map((d) => (
-          <article key={d.id} className="rf-card rf-card-hover p-5">
+          <article key={d.id} className="rf-library-card p-6">
             <header className="mb-3 flex items-start justify-between">
               <div>
-                <h3 className="font-display text-base font-semibold">{d.nome}</h3>
+                <h3 className="font-display text-xl font-semibold">{d.nome}</h3>
                 <p className="mt-0.5 text-xs text-foreground/45">{d.desc}</p>
               </div>
-              <button className="grid h-7 w-7 place-items-center rounded-md text-foreground/40 hover:bg-white/5 hover:text-foreground" aria-label="Mais">⋯</button>
+              <Button variant="ghost" className="grid h-7 w-7 place-items-center rounded-md text-foreground/40 hover:bg-foreground/5 hover:text-foreground" aria-label="Mais">⋯</Button>
             </header>
 
             <div className="grid grid-cols-3 gap-2 rounded-lg bg-background/40 p-3 text-center">
@@ -99,16 +100,16 @@ function FlashcardsPage() {
             </div>
 
             <div className="mt-4 flex items-center gap-2">
-              <button
+              <Button variant="ghost"
                 onClick={() => { setModo("estudo"); setVirado(false); }}
                 disabled={d.due === 0}
                 className="flex-1 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-30"
               >
                 {d.due > 0 ? `Estudar ${d.due} cards` : "Nada para hoje"}
-              </button>
-              <button className="rounded-lg border border-border bg-surface-2 px-3 py-2 text-xs font-medium text-foreground/70 hover:bg-white/5">
+              </Button>
+              <Button variant="ghost" className="rounded-lg border border-border bg-surface-2 px-3 py-2 text-xs font-medium text-foreground/70 hover:bg-foreground/5">
                 <Plus className="h-3.5 w-3.5" />
-              </button>
+              </Button>
             </div>
           </article>
         ))}
@@ -119,13 +120,13 @@ function FlashcardsPage() {
 
 function FsrsButton({ label, hint, tone = "default", primary }: { label: string; hint: string; tone?: "default" | "accent"; primary?: boolean }) {
   return (
-    <button className={[
-      "flex flex-col items-center gap-0.5 rounded-xl border bg-background/60 px-2 py-3 transition-all hover:-translate-y-0.5",
+    <Button variant="ghost" className={[
+      "flex h-auto flex-col items-center gap-0.5 rounded-xl border bg-background/60 px-2 py-3 transition-all hover:-translate-y-0.5",
       primary ? "border-primary/60 ring-1 ring-primary/30" : "border-border hover:border-primary/40",
     ].join(" ")}>
       <span className={["text-xs font-semibold", tone === "accent" ? "text-accent" : primary ? "text-primary" : "text-foreground/85"].join(" ")}>{label}</span>
       <span className="text-[10px] text-foreground/40">{hint}</span>
-    </button>
+    </Button>
   );
 }
 
