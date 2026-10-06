@@ -1,9 +1,10 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Home, BookOpen, Calendar, AlertTriangle, Layers, BarChart3, Settings,
-  Search, Flame, LogOut, ChevronRight, Sparkles, ClipboardList,
+  Search, Menu, X, Flame, LogOut, ChevronRight, Sparkles, ClipboardList,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 import { USER, STREAK, PROVA, diasAteProva, ROTAS } from "@/lib/mock";
 
 const ICONS = { home: Home, book: BookOpen, calendar: Calendar, alert: AlertTriangle, layers: Layers, chart: BarChart3, clipboard: ClipboardList, settings: Settings, sparkles: Sparkles } as const;
@@ -14,13 +15,13 @@ function NavItem({ to, label, iconKey, active }: { to: string; label: string; ic
     <Link
       to={to}
       className={[
-        "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+        "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
         active
-          ? "bg-primary/10 text-primary"
-          : "text-foreground/60 hover:bg-white/5 hover:text-foreground",
+          ? "bg-foreground/5 text-foreground"
+          : "text-foreground/60 hover:bg-foreground/5 hover:text-foreground",
       ].join(" ")}
     >
-      <Icon className="h-4 w-4 shrink-0" />
+      <Icon className={active ? "h-5 w-5 shrink-0 text-primary" : "h-5 w-5 shrink-0"} />
       <span className="truncate">{label}</span>
       {active && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />}
     </Link>
@@ -30,27 +31,28 @@ function NavItem({ to, label, iconKey, active }: { to: string; label: string; ic
 export function AppShell({ children, title, breadcrumb }: { children: ReactNode; title?: ReactNode; breadcrumb?: string }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const dias = diasAteProva();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-sidebar text-foreground">
       {/* Sidebar desktop */}
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-[248px] flex-col border-r border-sidebar-border bg-sidebar lg:flex">
-        <div className="flex items-center gap-2 px-6 py-5">
-          <div className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground">
+        <div className="flex items-center gap-2 px-6 py-8">
+          <div className="grid h-8 w-8 place-items-center rounded-md bg-primary text-accent">
             <span className="font-display text-sm font-bold">R</span>
           </div>
           <div>
-            <div className="font-display text-base font-semibold tracking-tight">RevisaFlash</div>
+            <div className="font-display text-xl font-semibold">RevisaFlash</div>
             <div className="text-[10px] uppercase tracking-widest text-foreground/40">{PROVA.nome}</div>
           </div>
         </div>
 
         <div className="px-3">
-          <button className="flex w-full items-center gap-2 rounded-lg border border-border bg-surface/40 px-3 py-2 text-left text-xs text-foreground/50 transition-colors hover:bg-surface/70">
+          <Button variant="ghost" className="flex h-auto w-full items-center gap-2 rounded-lg border border-border bg-surface/40 px-3 py-2 text-left text-xs text-foreground/50 transition-colors hover:bg-surface/70">
             <Search className="h-3.5 w-3.5" />
             <span>Buscar disciplina, tópico…</span>
-            <kbd className="ml-auto rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-foreground/40">⌘K</kbd>
-          </button>
+            
+          </Button>
         </div>
 
         <nav className="mt-5 flex-1 space-y-0.5 px-3">
@@ -61,7 +63,7 @@ export function AppShell({ children, title, breadcrumb }: { children: ReactNode;
               to={r.to}
               label={r.label}
               iconKey={r.icon as keyof typeof ICONS}
-              active={pathname === r.to}
+              active={pathname === r.to || (r.to !== "/" && pathname.startsWith(r.to + "/"))}
             />
           ))}
         </nav>
@@ -74,19 +76,19 @@ export function AppShell({ children, title, breadcrumb }: { children: ReactNode;
             <span className="font-display text-2xl font-semibold tabular-nums">{STREAK}</span>
             <span className="text-xs text-foreground/50">dias seguidos</span>
           </div>
-          <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/5">
-            <div className="h-full rounded-full bg-gradient-to-r from-primary to-accent" style={{ width: "72%" }} />
+          <div className="mt-3 h-1 overflow-hidden rounded-full bg-foreground/5">
+            <div className="h-full rounded-full bg-accent" style={{ width: "72%" }} />
           </div>
         </div>
 
         <div className="border-t border-sidebar-border p-3">
-          <div className="flex items-center gap-3 rounded-lg p-2 hover:bg-white/5">
+          <div className="flex items-center gap-3 rounded-lg p-2 hover:bg-foreground/5">
             <div className="grid h-9 w-9 place-items-center rounded-full bg-accent/15 font-display text-xs font-semibold text-accent">{USER.initials}</div>
             <div className="min-w-0 flex-1">
               <div className="truncate text-xs font-medium">{USER.name}</div>
               <div className="truncate text-[10px] text-foreground/40">{USER.plan}</div>
             </div>
-            <Link to="/login" className="grid h-7 w-7 place-items-center rounded-md text-foreground/40 hover:bg-white/5 hover:text-foreground" aria-label="Sair">
+            <Link to="/login" className="grid h-7 w-7 place-items-center rounded-md text-foreground/40 hover:bg-foreground/5 hover:text-foreground" aria-label="Sair">
               <LogOut className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -94,17 +96,18 @@ export function AppShell({ children, title, breadcrumb }: { children: ReactNode;
       </aside>
 
       {/* Main */}
-      <div className="lg:pl-[248px]">
+      <div className="min-h-screen lg:ml-[248px] lg:mr-3 lg:mt-3 lg:rounded-3xl lg:border lg:border-border bg-background">
         {/* Topbar */}
-        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur-md sm:px-6 lg:px-8">
+        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur-md sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-3">
+            <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Abrir menu" onClick={() => setMenuOpen(true)}><Menu /></Button>
             <Link to="/" className="flex items-center gap-2 lg:hidden">
-              <div className="grid h-7 w-7 place-items-center rounded-md bg-primary text-primary-foreground">
+              <div className="grid h-7 w-7 place-items-center rounded-md bg-primary text-accent">
                 <span className="font-display text-xs font-bold">R</span>
               </div>
               <span className="font-display text-sm font-semibold">RevisaFlash</span>
             </Link>
-            <div className="hidden items-center gap-2 text-xs lg:flex">
+            <div className="hidden items-center gap-2 text-sm lg:flex">
               <span className="text-foreground/40">RevisaFlash</span>
               {breadcrumb && (
                 <>
@@ -129,17 +132,21 @@ export function AppShell({ children, title, breadcrumb }: { children: ReactNode;
         </header>
 
         {/* Page content */}
-        <main className="rf-fade-in mx-auto w-full max-w-7xl px-4 pb-24 pt-6 sm:px-6 lg:px-8 lg:pb-10">
+        <main className="rf-fade-in mx-auto w-full max-w-6xl px-4 pb-24 pt-8 sm:px-6 lg:px-10 lg:pb-10">
           {title && (
             <div className="mb-6 flex flex-col gap-1">
               {breadcrumb && <span className="text-[11px] font-medium uppercase tracking-widest text-foreground/40">{breadcrumb}</span>}
-              {title && <h1 className="font-display text-2xl font-semibold tracking-tight text-balance sm:text-3xl">{title}</h1>}
+              {title && <h1 className="font-display text-2xl font-semibold tracking-normal text-balance sm:text-3xl">{title}</h1>}
             </div>
           )}
           {children}
         </main>
       </div>
 
+      {menuOpen && <div className="fixed inset-0 z-50 bg-background lg:hidden">
+        <div className="flex items-center justify-between border-b border-border p-5"><span className="font-display text-xl font-semibold">RevisaFlash</span><Button variant="ghost" size="icon" aria-label="Fechar menu" onClick={() => setMenuOpen(false)}><X /></Button></div>
+        <nav className="space-y-1 p-4" onClick={() => setMenuOpen(false)}>{ROTAS.map(r => <NavItem key={r.to} to={r.to} label={r.label} iconKey={r.icon} active={pathname === r.to || (r.to !== "/" && pathname.startsWith(r.to + "/"))} />)}</nav>
+      </div>}
       {/* Bottom nav mobile */}
       <BottomNav pathname={pathname} />
     </div>
@@ -150,7 +157,7 @@ function BottomNav({ pathname }: { pathname: string }) {
   const items = ROTAS.slice(0, 5);
   return (
     <nav className="fixed inset-x-3 bottom-3 z-40 lg:hidden">
-      <div className="mx-auto flex max-w-md items-center justify-around rounded-2xl border border-white/10 bg-surface/85 px-2 py-2 backdrop-blur-xl shadow-elevated">
+      <div className="mx-auto flex max-w-md items-center justify-around rounded-2xl border border-border bg-surface/85 px-2 py-2 backdrop-blur-xl shadow-elevated">
         {items.map((r) => {
           const Icon = ICONS[r.icon as keyof typeof ICONS];
           const active = pathname === r.to;

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 import { AppShell } from "@/components/app-shell";
 import { SIMULADOS, statusLabel, type Simulado } from "@/lib/simulados";
 import { Clock, ListChecks, Play, RotateCcw, Upload, FileText, CheckCircle2, Layers } from "lucide-react";
@@ -30,7 +31,7 @@ function SimuladosPage() {
         <Kpi label="Média geral" value="76%" icon={<ListChecks className="h-3.5 w-3.5" />} accent />
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {SIMULADOS.map((s) => (
           <SimuladoCard key={s.id} s={s} />
         ))}
@@ -44,9 +45,9 @@ function SimuladosPage() {
           <p className="mt-1 max-w-xs text-xs text-foreground/45">
             Em breve você poderá enviar o PDF do caderno de questões e o RevisaFlash montará o simulado interativo com gabarito comentado.
           </p>
-          <button className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface/60 px-3 py-1.5 text-xs font-medium text-foreground/70 hover:bg-surface">
+          <Button variant="outline" className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface/60 px-3 py-1.5 text-xs font-medium text-foreground/70 hover:bg-surface">
             <FileText className="h-3.5 w-3.5" /> Enviar PDF
-          </button>
+          </Button>
         </article>
       </div>
     </AppShell>
@@ -59,23 +60,23 @@ function SimuladoCard({ s }: { s: Simulado }) {
   const andamento = s.status === "em-andamento";
 
   return (
-    <article className="rf-card rf-card-hover flex flex-col p-5">
-      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
+    <article className="rf-library-card flex flex-col p-6">
+      <div className="flex flex-col-reverse items-start gap-3">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-1.5">
             <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">{s.area}</span>
-            <span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] font-medium text-foreground/50">{s.nivel}</span>
-            <span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] font-medium text-foreground/50">
+            <span className="rounded-full bg-foreground/5 px-2 py-0.5 text-[10px] font-medium text-foreground/50">{s.nivel}</span>
+            <span className="rounded-full bg-foreground/5 px-2 py-0.5 text-[10px] font-medium text-foreground/50">
               {s.banca} · {s.ano}
             </span>
           </div>
-          <h3 className="mt-2 font-display text-base font-semibold tracking-tight">{s.titulo}</h3>
+          <h3 className="mt-2 font-display text-xl font-semibold tracking-tight">{s.titulo}</h3>
           <p className="mt-1 text-xs text-foreground/50">{s.descricao}</p>
         </div>
         <span
           className={[
             "shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold",
-            concluido ? "bg-primary/15 text-primary" : andamento ? "bg-accent/15 text-accent" : "bg-white/5 text-foreground/45",
+            concluido ? "bg-primary/15 text-primary" : andamento ? "bg-accent/15 text-accent" : "bg-foreground/5 text-foreground/45",
           ].join(" ")}
         >
           {statusLabel[s.status]}
@@ -101,9 +102,9 @@ function SimuladoCard({ s }: { s: Simulado }) {
                 : `${s.progresso}/${s.questoes} · ${pct}%`}
             </span>
           </div>
-          <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
+          <div className="h-1.5 overflow-hidden rounded-full bg-foreground/5">
             <div
-              className={["h-full rounded-full", concluido ? "bg-primary" : "bg-gradient-to-r from-primary to-accent"].join(" ")}
+              className={["h-full rounded-full", concluido ? "bg-primary" : "bg-accent"].join(" ")}
               style={{
                 width: `${concluido && s.resultado ? Math.round((s.resultado.acertos / s.questoes) * 100) : pct}%`,
               }}
@@ -112,7 +113,7 @@ function SimuladoCard({ s }: { s: Simulado }) {
         </div>
       )}
 
-      <div className="mt-5 flex items-center gap-2">
+      <div className="mt-auto flex flex-wrap items-center gap-2 pt-6">
         <Link
           to="/simulados/$id"
           params={{ id: s.id }}

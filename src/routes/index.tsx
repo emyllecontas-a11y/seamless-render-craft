@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
 import { AppShell } from "@/components/app-shell";
 import {
   USER, CHECKLIST_HOJE, REVISOES_HOJE, PROXIMAS_REVISOES, DISCIPLINAS,
   META_SEMANAL, diasAteProva, STREAK,
 } from "@/lib/mock";
-import { Check, Plus, Clock, ArrowUpRight, Flame, Target, BookOpen, AlertTriangle } from "lucide-react";
+import { Check, Plus, Clock, ArrowUpRight, Flame, Target, BookOpen, AlertTriangle, Folder } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,17 +39,17 @@ function DashboardPage() {
         <StatCard icon={<AlertTriangle className="h-4 w-4" />} label="Erros ativos" value={62} hint="13 áreas" tone="accent" />
 
         {/* Checklist */}
-        <section className="col-span-12 rf-card p-5 lg:col-span-5">
+        <section className="col-span-12 p-1 lg:col-span-5">
           <header className="mb-4 flex items-center justify-between">
             <div>
               <h2 className="font-display text-base font-semibold">Checklist de hoje</h2>
               <p className="text-xs text-foreground/45">{feitos}/{totalChecklist} concluídos · ter, 26 jun</p>
             </div>
-            <button className="grid h-7 w-7 place-items-center rounded-md border border-border text-foreground/60 hover:bg-white/5"><Plus className="h-3.5 w-3.5" /></button>
+            <Button variant="ghost" size="icon" aria-label="Adicionar tarefa" className="grid h-7 w-7 place-items-center rounded-md border border-border text-foreground/60 hover:bg-foreground/5"><Plus className="h-3.5 w-3.5" /></Button>
           </header>
           <ul className="space-y-2.5">
             {CHECKLIST_HOJE.map((c) => (
-              <li key={c.id} className="group flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-white/3">
+              <li key={c.id} className="group flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-foreground/5">
                 <span className={[
                   "grid h-4 w-4 shrink-0 place-items-center rounded border transition-colors",
                   c.feito ? "border-primary bg-primary" : "border-foreground/25 group-hover:border-primary/60",
@@ -61,13 +62,13 @@ function DashboardPage() {
               </li>
             ))}
           </ul>
-          <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/5">
+          <div className="mt-4 h-1 overflow-hidden rounded-full bg-foreground/5">
             <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${(feitos / totalChecklist) * 100}%` }} />
           </div>
         </section>
 
         {/* Revisões hoje */}
-        <section className="col-span-12 rf-card p-5 lg:col-span-7">
+        <section className="col-span-12 p-1 lg:col-span-7">
           <header className="mb-4 flex items-center justify-between">
             <div>
               <h2 className="font-display text-base font-semibold">Revisões de hoje</h2>
@@ -97,7 +98,7 @@ function DashboardPage() {
         </section>
 
         {/* Disciplinas mini */}
-        <section className="col-span-12 rf-card p-5 lg:col-span-7">
+        <section className="col-span-12 p-1 lg:col-span-7">
           <header className="mb-4 flex items-center justify-between">
             <div>
               <h2 className="font-display text-base font-semibold">Progresso por disciplina</h2>
@@ -105,23 +106,20 @@ function DashboardPage() {
             </div>
             <Link to="/conteudo" className="text-xs font-medium text-primary hover:underline">Ver todas</Link>
           </header>
-          <ul className="space-y-3">
-            {DISCIPLINAS.slice(0, 4).map((d) => (
-              <li key={d.nome}>
-                <div className="mb-1.5 flex items-baseline justify-between gap-3">
-                  <span className="truncate text-sm">{d.nome}</span>
-                  <span className="text-xs font-medium tabular-nums text-foreground/70">{d.progresso}%</span>
-                </div>
-                <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
-                  <div className={["h-full rounded-full transition-all", d.progresso >= 80 ? "bg-primary" : d.progresso >= 40 ? "bg-primary/70" : "bg-accent/70"].join(" ")} style={{ width: `${d.progresso}%` }} />
-                </div>
-              </li>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {DISCIPLINAS.slice(0, 4).map((d, i) => (
+              <Link to="/conteudo" key={d.nome} className="rf-library-card flex min-h-[220px] flex-col p-6">
+                <div className={i === 1 ? "mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-accent/15 text-accent" : "mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-primary/20 text-primary"}><Folder className="h-6 w-6" /></div>
+                <h3 className="mb-2 font-display text-lg font-semibold leading-snug">{d.nome}</h3>
+                <p className="text-sm text-muted-foreground">{d.topicos} tópicos · {d.cards} cards</p>
+                <div className="mt-auto flex items-center gap-3 pt-5"><div className="h-1.5 flex-1 overflow-hidden rounded-full bg-foreground/5"><div className={i === 1 ? "h-full bg-accent" : "h-full bg-primary"} style={{width: `${d.progresso}%`}} /></div><span className="text-xs tabular-nums text-muted-foreground">{d.progresso}%</span></div>
+              </Link>
             ))}
-          </ul>
+          </div>
         </section>
 
         {/* Próximas */}
-        <section className="col-span-12 rf-card p-5 lg:col-span-5">
+        <section className="col-span-12 p-1 lg:col-span-5">
           <header className="mb-4 flex items-center justify-between">
             <h2 className="font-display text-base font-semibold">Próximas revisões</h2>
             <Link to="/calendario" className="text-xs font-medium text-primary hover:underline">Ver agenda</Link>
@@ -149,11 +147,11 @@ function DashboardPage() {
 
 function StatCard({ icon, label, value, hint, tone = "primary" }: { icon: React.ReactNode; label: string; value: React.ReactNode; hint?: string; tone?: "primary" | "accent" }) {
   return (
-    <div className="col-span-6 rf-card p-4 sm:col-span-3 rf-card-hover">
+    <div className="col-span-6 rounded-2xl border border-border bg-surface/50 p-5 sm:col-span-3">
       <div className={["mb-3 inline-flex h-7 w-7 items-center justify-center rounded-md", tone === "accent" ? "bg-accent/10 text-accent" : "bg-primary/10 text-primary"].join(" ")}>
         {icon}
       </div>
-      <div className="text-[10px] font-medium uppercase tracking-widest text-foreground/40">{label}</div>
+      <div className="text-xs font-medium text-muted-foreground">{label}</div>
       <div className="mt-1 font-display text-2xl font-semibold tabular-nums">{value}</div>
       {hint && <div className="mt-0.5 text-[11px] text-foreground/40">{hint}</div>}
     </div>

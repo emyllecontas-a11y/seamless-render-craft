@@ -1,6 +1,6 @@
 @import "tailwindcss" source(none);
-@source "../src";
 @import "tw-animate-css";
+@source "../src";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -39,8 +39,8 @@
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-border: var(--sidebar-border);
 
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
 
   --shadow-elevated: 0 24px 60px -24px color-mix(in oklab, #000 70%, transparent);
   --shadow-glow: 0 0 0 1px color-mix(in oklab, var(--primary) 40%, transparent),
@@ -48,36 +48,37 @@
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 1.5rem;
 
-  /* Clinical dark palette — bg #0F1A1F, surface #0E2A2C, primary #14B8A6, accent #FB7185, text #ECFEFF */
-  --background: #0F1A1F;
-  --surface: #0E2A2C;
-  --surface-2: #112E31;
-  --foreground: #ECFEFF;
-  --card: #0E2A2C;
-  --card-foreground: #ECFEFF;
-  --popover: #112E31;
-  --popover-foreground: #ECFEFF;
-  --primary: #14B8A6;
-  --primary-foreground: #04201D;
-  --secondary: #112E31;
-  --secondary-foreground: #ECFEFF;
-  --muted: #15363A;
-  --muted-foreground: rgba(236, 254, 255, 0.55);
-  --accent: #FB7185;
-  --accent-foreground: #2A0610;
-  --destructive: #FB7185;
-  --destructive-foreground: #ECFEFF;
-  --success: #14B8A6;
-  --warning: #F59E0B;
-  --border: rgba(236, 254, 255, 0.08);
-  --input: rgba(236, 254, 255, 0.12);
-  --ring: #14B8A6;
-
-  --sidebar: #0B1518;
-  --sidebar-foreground: #ECFEFF;
-  --sidebar-border: rgba(236, 254, 255, 0.06);
+  /* Biblioteca moderna — selected prototype tokens */
+  --background: #0F0F1A;
+  --surface: #1A1A2E;
+  --surface-2: #242438;
+  --foreground: #F3F4F6;
+  --card: #1A1A2E;
+  --card-foreground: #F3F4F6;
+  --popover: #242438;
+  --popover-foreground: #F3F4F6;
+  --primary: #7C3AED;
+  --primary-foreground: #FFFFFF;
+  --secondary: #242438;
+  --secondary-foreground: #F3F4F6;
+  --muted: #242438;
+  --muted-foreground: #A3A3B5;
+  --accent: #FACC15;
+  --accent-foreground: #0A0A0F;
+  --destructive: #F48492;
+  --destructive-foreground: #0A0A0F;
+  --success: #73CDB4;
+  --warning: #FACC15;
+  --border: rgb(255 255 255 / 0.05);
+  --input: rgb(255 255 255 / 0.12);
+  --ring: #A78BFA;
+  --sidebar: #0A0A0F;
+  --sidebar-foreground: #F3F4F6;
+  --sidebar-border: rgb(255 255 255 / 0.05);
+  --primary-readable: #BDA2FF;
+  --library-accent: linear-gradient(to right, var(--primary), var(--accent));
 }
 
 @layer base {
@@ -93,7 +94,7 @@
 
   ::selection { background: color-mix(in oklab, var(--primary) 35%, transparent); color: var(--foreground); }
 
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0; }
 }
 
 @keyframes rf-fade-up {
@@ -126,5 +127,24 @@
     border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
     transform: translateY(-1px);
     box-shadow: 0 8px 24px -16px color-mix(in oklab, var(--primary) 40%, transparent);
+  }
+}
+
+@theme inline { --color-primary-readable: var(--primary-readable); }
+@utility rf-library-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  transition: border-color 200ms, transform 200ms;
+  &:hover { border-color: color-mix(in oklab, var(--primary) 50%, transparent); transform: translateY(-2px); }
+  &::after { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--library-accent); }
+}
+@layer base {
+  .text-primary { color: var(--primary-readable); }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   }
 }

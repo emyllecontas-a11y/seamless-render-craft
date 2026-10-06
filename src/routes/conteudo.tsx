@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
 import { DISCIPLINAS } from "@/lib/mock";
-import { Plus, Search, ChevronRight, FileText, Upload } from "lucide-react";
+import { Plus, Search, ChevronRight, FileText, Upload, Folder } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export const Route = createFileRoute("/conteudo")({
@@ -23,7 +24,7 @@ function ConteudoPage() {
             ["concluido", "Concluídas"],
             ["iniciar", "Não iniciadas"],
           ] as const).map(([k, l]) => (
-            <button
+            <Button variant="ghost"
               key={k}
               onClick={() => setFiltro(k)}
               className={[
@@ -34,7 +35,7 @@ function ConteudoPage() {
               ].join(" ")}
             >
               {l}
-            </button>
+            </Button>
           ))}
         </div>
         <div className="flex items-center gap-2">
@@ -42,37 +43,37 @@ function ConteudoPage() {
             <Search className="h-3.5 w-3.5 text-foreground/40" />
             <input placeholder="Buscar disciplina…" className="w-44 bg-transparent text-xs outline-none placeholder:text-foreground/35" />
           </div>
-          <button className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90">
+          <Button variant="ghost" className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90">
             <Plus className="h-3.5 w-3.5" /> Nova disciplina
-          </button>
+          </Button>
         </div>
       </div>
 
-      <div className="grid gap-3">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {lista.map((d) => (
-          <article key={d.nome} className="rf-card rf-card-hover group flex items-center gap-4 p-4 sm:p-5">
+          <article key={d.nome} className="rf-library-card group flex min-h-[260px] flex-col items-start gap-4 p-6">
             <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary/10 font-display text-base font-semibold text-primary">
-              {d.nome.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+              <Folder className="h-6 w-6" />
             </div>
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0 w-full flex-1">
               <div className="flex flex-wrap items-baseline gap-x-2">
-                <h3 className="truncate text-sm font-semibold sm:text-base">{d.nome}</h3>
+                <h3 className="mb-2 font-display text-xl font-semibold leading-snug">{d.nome}</h3>
                 <StatusBadge status={d.status as "em-andamento" | "concluido" | "iniciar"} />
               </div>
-              <div className="mt-0.5 text-xs text-foreground/45">
+              <div className="mt-0.5 text-sm text-muted-foreground">
                 {d.topicos} tópicos · {d.cards} cards
               </div>
               <div className="mt-3 flex items-center gap-3">
-                <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/5">
+                <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-foreground/5">
                   <div className={[
                     "h-full rounded-full transition-all",
-                    d.progresso === 100 ? "bg-primary" : d.progresso === 0 ? "bg-foreground/15" : "bg-gradient-to-r from-primary to-primary/60",
+                    d.progresso === 100 ? "bg-primary" : d.progresso === 0 ? "bg-foreground/15" : "bg-primary",
                   ].join(" ")} style={{ width: `${d.progresso}%` }} />
                 </div>
                 <span className="text-xs font-medium tabular-nums text-foreground/70 w-10 text-right">{d.progresso}%</span>
               </div>
             </div>
-            <ChevronRight className="h-4 w-4 shrink-0 text-foreground/30 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
+            <ChevronRight className="absolute right-6 top-7 h-4 w-4 shrink-0 text-foreground/30 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
           </article>
         ))}
       </div>
@@ -81,7 +82,7 @@ function ConteudoPage() {
       <section className="mt-10">
         <header className="mb-3 flex items-baseline justify-between">
           <h2 className="font-display text-lg font-semibold">Materiais recentes</h2>
-          <button className="text-xs font-medium text-primary hover:underline">Enviar arquivo</button>
+          <Button variant="ghost" className="text-xs font-medium text-primary hover:underline">Enviar arquivo</Button>
         </header>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {[
@@ -101,9 +102,9 @@ function ConteudoPage() {
               </div>
             </div>
           ))}
-          <button className="grid place-items-center gap-2 rounded-xl border border-dashed border-border bg-surface/30 p-6 text-xs text-foreground/50 transition-colors hover:border-primary/50 hover:text-primary">
+          <Button variant="ghost" className="grid place-items-center gap-2 rounded-xl border border-dashed border-border bg-surface/30 p-6 text-xs text-foreground/50 transition-colors hover:border-primary/50 hover:text-primary">
             <Upload className="h-4 w-4" /> Arraste arquivos ou clique para enviar
-          </button>
+          </Button>
         </div>
       </section>
     </AppShell>

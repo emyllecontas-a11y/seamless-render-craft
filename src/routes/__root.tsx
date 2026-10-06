@@ -77,7 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "RevisaFlash — Estudo para ENARE" },
       { name: "description", content: "Protótipo visual do RevisaFlash: revisão espaçada, flashcards, banco de erros e desempenho para o ENARE de Odontologia." },
-      { name: "theme-color", content: "#0F1A1F" },
+      { name: "theme-color", content: "#0A0A0F" },
       { property: "og:title", content: "RevisaFlash" },
       { property: "og:description", content: "Estudo focado para o ENARE de Odontologia." },
       { property: "og:type", content: "website" },
@@ -88,7 +88,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Space+Grotesk:wght@500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap",
       },
       { rel: "stylesheet", href: appCss },
     ],
