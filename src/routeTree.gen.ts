@@ -9,57 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as LandingRouteImport } from './routes/landing'
-import { Route as FlashcardsRouteImport } from './routes/flashcards'
-import { Route as FlashIaRouteImport } from './routes/flash-ia'
-import { Route as ErrosRouteImport } from './routes/erros'
-import { Route as DesempenhoRouteImport } from './routes/desempenho'
-import { Route as ConteudoRouteImport } from './routes/conteudo'
-import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
-import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CalendarioRouteImport } from './routes/calendario'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as ConteudoRouteImport } from './routes/conteudo'
+import { Route as DesempenhoRouteImport } from './routes/desempenho'
+import { Route as ErrosRouteImport } from './routes/erros'
+import { Route as FlashIaRouteImport } from './routes/flash-ia'
+import { Route as FlashcardsRouteImport } from './routes/flashcards'
+import { Route as LandingRouteImport } from './routes/landing'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as SimuladosIndexRouteImport } from './routes/simulados.index'
 import { Route as SimuladosIdRouteImport } from './routes/simulados.$id'
 
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LandingRoute = LandingRouteImport.update({
-  id: '/landing',
-  path: '/landing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FlashcardsRoute = FlashcardsRouteImport.update({
-  id: '/flashcards',
-  path: '/flashcards',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FlashIaRoute = FlashIaRouteImport.update({
-  id: '/flash-ia',
-  path: '/flash-ia',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ErrosRoute = ErrosRouteImport.update({
-  id: '/erros',
-  path: '/erros',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DesempenhoRoute = DesempenhoRouteImport.update({
-  id: '/desempenho',
-  path: '/desempenho',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConteudoRoute = ConteudoRouteImport.update({
-  id: '/conteudo',
-  path: '/conteudo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
-  id: '/configuracoes',
-  path: '/configuracoes',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CalendarioRoute = CalendarioRouteImport.update({
@@ -67,9 +32,44 @@ const CalendarioRoute = CalendarioRouteImport.update({
   path: '/calendario',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConteudoRoute = ConteudoRouteImport.update({
+  id: '/conteudo',
+  path: '/conteudo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesempenhoRoute = DesempenhoRouteImport.update({
+  id: '/desempenho',
+  path: '/desempenho',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrosRoute = ErrosRouteImport.update({
+  id: '/erros',
+  path: '/erros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlashIaRoute = FlashIaRouteImport.update({
+  id: '/flash-ia',
+  path: '/flash-ia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlashcardsRoute = FlashcardsRouteImport.update({
+  id: '/flashcards',
+  path: '/flashcards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LandingRoute = LandingRouteImport.update({
+  id: '/landing',
+  path: '/landing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SimuladosIndexRoute = SimuladosIndexRouteImport.update({
@@ -188,60 +188,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/landing': {
-      id: '/landing'
-      path: '/landing'
-      fullPath: '/landing'
-      preLoaderRoute: typeof LandingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/flashcards': {
-      id: '/flashcards'
-      path: '/flashcards'
-      fullPath: '/flashcards'
-      preLoaderRoute: typeof FlashcardsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/flash-ia': {
-      id: '/flash-ia'
-      path: '/flash-ia'
-      fullPath: '/flash-ia'
-      preLoaderRoute: typeof FlashIaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/erros': {
-      id: '/erros'
-      path: '/erros'
-      fullPath: '/erros'
-      preLoaderRoute: typeof ErrosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/desempenho': {
-      id: '/desempenho'
-      path: '/desempenho'
-      fullPath: '/desempenho'
-      preLoaderRoute: typeof DesempenhoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/conteudo': {
-      id: '/conteudo'
-      path: '/conteudo'
-      fullPath: '/conteudo'
-      preLoaderRoute: typeof ConteudoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/configuracoes': {
-      id: '/configuracoes'
-      path: '/configuracoes'
-      fullPath: '/configuracoes'
-      preLoaderRoute: typeof ConfiguracoesRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/calendario': {
@@ -251,11 +202,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalendarioRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conteudo': {
+      id: '/conteudo'
+      path: '/conteudo'
+      fullPath: '/conteudo'
+      preLoaderRoute: typeof ConteudoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/desempenho': {
+      id: '/desempenho'
+      path: '/desempenho'
+      fullPath: '/desempenho'
+      preLoaderRoute: typeof DesempenhoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/erros': {
+      id: '/erros'
+      path: '/erros'
+      fullPath: '/erros'
+      preLoaderRoute: typeof ErrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flash-ia': {
+      id: '/flash-ia'
+      path: '/flash-ia'
+      fullPath: '/flash-ia'
+      preLoaderRoute: typeof FlashIaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flashcards': {
+      id: '/flashcards'
+      path: '/flashcards'
+      fullPath: '/flashcards'
+      preLoaderRoute: typeof FlashcardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/landing': {
+      id: '/landing'
+      path: '/landing'
+      fullPath: '/landing'
+      preLoaderRoute: typeof LandingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/simulados/': {
